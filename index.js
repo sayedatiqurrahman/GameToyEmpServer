@@ -65,7 +65,7 @@ async function run() {
         app.get('/search/:text', async (req, res) => {
             const search = req.params.text;
             const result = await myToys.find(
-                { name: { $regex: search, $options: "i" } }).toArray()
+                { name: { $regex: search, $options: "i" } }).limit(20).toArray()
             res.send(result)
 
         })
