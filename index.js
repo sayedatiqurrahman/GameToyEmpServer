@@ -32,6 +32,12 @@ async function run() {
             const result = await myToys.find({}).limit(20).toArray()
             res.send(result)
         })
+        app.post('/', async (req, res) => {
+            const data = req.body
+            const result = await myToys.insertOne(data)
+            res.send(result)
+        })
+
         // Gallery route
         app.get('/gallery', async (req, res) => {
             const result = await myToys.find({}).limit(20).toArray()
