@@ -40,6 +40,19 @@ async function run() {
             const result = await myToys.find({}).limit(20).toArray()
             res.send(result)
         })
+        app.get('/shopByCategory', async (req, res) => {
+            const filter = {
+                $or: [
+                    { subCategory: "Action Figures" },
+                    { subCategory: "Replica Items" },
+                    { subCategory: "Collectible Statues" },
+                    { subCategory: "Plush Toys" },
+                    { subCategory: "Gaming Accessories" }
+                ]
+            }
+            const result = await myToys.find(filter).toArray()
+            res.send(result)
+        })
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
