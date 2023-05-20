@@ -29,7 +29,7 @@ async function run() {
         const myToys = client.db('gameToys').collection('myToys')
         //    Get all data || home route
         app.get('/', async (req, res) => {
-            const result = await myToys.find({}).toArray()
+            const result = await myToys.find({}).limit(20).toArray()
             res.send(result)
         })
         // Gallery route
@@ -65,7 +65,7 @@ async function run() {
         app.get('/search/:text', async (req, res) => {
             const search = req.params.text;
             const result = await myToys.find(
-                { name: { $regex: search, $options: "i" } }).limit(20).toArray()
+                { name: { $regex: search, $options: "i" } }).toArray()
             res.send(result)
 
         })
