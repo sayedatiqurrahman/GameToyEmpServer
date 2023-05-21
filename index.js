@@ -68,6 +68,26 @@ async function run() {
             res.send(result)
         })
 
+        app.put('/update/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { _id: new ObjectId(id) }
+            const body = req.body;
+            const updateDoc = {
+                $set: {
+                    subCategory: body.subCategory,
+                    releaseDate: body.releaseDate,
+                    rating: body.rating,
+                    price: body.price,
+                    pictureURL: body.pictureURL,
+                    name: body.name,
+                    detailDescription: body.detailDescription,
+                    availableQuantity: body.availableQuantity
+                }
+            }
+            const result = await myToys.updateOne(query, updateDoc)
+            res.send(result)
+        })
+
         app.get('/search/:text', async (req, res) => {
             const search = req.params.text;
             const result = await myToys.find(
